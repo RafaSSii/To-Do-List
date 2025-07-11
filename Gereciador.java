@@ -16,7 +16,11 @@ public class Gereciador{
         tarefas.add(new Tarefa(descricao, prioridade));
     }
 
-    public List<Tarefas> pegarTodasTarefas(){
+    public List<Tarefa> pegarTodasTarefas(){
         return new ArrayList<>(tarefas);
+    }
+
+    public List<Tarefa> pegarTarefasPendentes(){
+        return tarefas.stream().filter(tarefa -> !tarefa.estaConcluida()).collect(Collectors.toList());
     }
 }

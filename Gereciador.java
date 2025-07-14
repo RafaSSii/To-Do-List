@@ -9,7 +9,7 @@ public class Gereciador{
     }
 
     public void adicionarTarefa(String descricao){
-        tarefas.add(new Tarefas(descricao));
+        tarefas.add(new Tarefa(descricao));
     }
 
     public void adicionarTarefa(String descricao, int prioridade){
@@ -22,5 +22,13 @@ public class Gereciador{
 
     public List<Tarefa> pegarTarefasPendentes(){
         return tarefas.stream().filter(tarefa -> !tarefa.estaConcluida()).collect(Collectors.toList());
+    }
+
+    public List<Tarefa> obterTarefasConcluidas(){
+        return tarefas.stream().filter(Tarefa::estaConcluida).collect(Collectors.toList());
+    }
+
+    public List<Tarefa> obterTarefasPorPrioridade(int prioridade){
+        return tarefas.stream().filter(tarefa -> tarefa.getPrioridade() = prioridade).collect(Collectors.toList());
     }
 }

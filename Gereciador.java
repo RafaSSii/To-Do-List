@@ -29,6 +29,45 @@ public class Gereciador{
     }
 
     public List<Tarefa> obterTarefasPorPrioridade(int prioridade){
-        return tarefas.stream().filter(tarefa -> tarefa.getPrioridade() = prioridade).collect(Collectors.toList());
+        return tarefas.stream().filter(tarefa -> tarefa.getPrioridade() == prioridade).collect(Collectors.toList());
+    }
+
+    public boolean concluirTarefa(int indice){
+        if (indiceValido(indice)){
+            tarefas.get(indice).setConcluida(true);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean removerTarefa(int indice){
+        if (indiceValido(indice)){
+            tarefas.remove(indice);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean editarTarefa(int indice, String novaDescricao){
+        if (indiceValido(indice)){
+            tarefas.get(indice).setDescricao(novaDescricao);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean alternarPrioridade(int indice, int novaPrioridade){
+        if (indiceValido(indice)){
+            tarefas.get(indice).setPrioridade(novaPrioridade);
+            return true;
+        }
+        return false;
+    }
+
+    public Tarefa obterTarefa(int indice){
+        if (indiceValido(indice)){
+            return tarefas.get(indice);
+        }
+        return null;
     }
 }

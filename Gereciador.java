@@ -70,4 +70,30 @@ public class Gereciador{
         }
         return null;
     }
+
+    public boolean indiceValido(int indice){
+        return indice >= 0 && indice < tarefas.size();
+    }
+
+    public int getTotalTarefas(){
+        return tarefas.size();
+    }
+
+    public EstatisticasTarefas obterEstatisticas(){
+        int total = tarefas.size();
+        int concluidas = (int) tarefas.stream().filter(Tarefa::estaConcluida).count();
+        int pendentes = total - concluidas;
+
+        return new EstatisticasTarefas(total, concluidas, pendentes);
+    }
+
+    public void ordenarPrioridade(){
+        tarefas.sort(Comparator.comparingInt(Tarefa::getPrioridade));
+    }
+
+    public int limparTarefasConcluidas(){
+        int removidas = (int) tarefas.stream().filter(Tarefa::estaConcluida).count();
+        tarefas.removeIf(Tarefa::estaConcluida);
+        return removidas;
+    }
 }

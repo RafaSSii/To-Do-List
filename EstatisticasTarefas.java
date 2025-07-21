@@ -25,4 +25,13 @@ public class EstatisticasTarefas {
         if (total == 0) return 0.0;
         return (double) concluidas / total * 100;
     }
+
+    @Override
+    public String toString(){
+        return String.format(
+            "📊 Estatísticas:\n" +
+            "   Total: %d tarefas\n" +
+            "   Concluídas: %d (%.1f%%)\n" +
+            "   Pendentes: %d (%.1f%%)", total, concluidas, getPercentualConclusao(), pendentes, 100 - getPercentualConclusao());
+    }
 }

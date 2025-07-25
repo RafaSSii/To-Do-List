@@ -98,4 +98,37 @@ public class InterfaceMenu{
         }
         return true;
     }
+
+    private void menuAdicionarTarefa(){
+        System.out.println("📝 Digite a descrição da tarefa: ");
+        String descricao = scanner.nextLine();
+
+        System.out.println("🎯 Selecione a prioridade:");
+        System.out.println("1. 🔴 Alta");
+        System.out.println("2. 🟡 Média");
+        System.out.println("3. 🟢 Baixa");
+        System.out.print("Prioridade (1-3, ou Enter para média): ");
+
+        String entradaPrioridade = scanner.nextLine();
+        int prioridade = 2;
+
+        if (!entradaPrioridade.isEmpty()){
+            try {
+                prioridade = Integer.parseInt(entradaPrioridade);
+                if (prioridade < 1 || prioridade > 3){
+                    prioridade = 2;
+                }
+            }catch (NumberFormatException e){
+                prioridade = 2;
+            }
+        }
+
+        gerenciadorTarefas.adicionarTarefa(descricao, prioridade);
+        System.out.println("✅ Tarefa adicionada com sucesso!");
+    }
+
+    private void listarTodasTarefas(){
+        List<Tarefa> tarefas = gerenciadorTarefas.obterTodasTarefas();
+        exibirTarefas(tarefas, ""📋 TODAS AS TAREFAS"");
+    }
 }

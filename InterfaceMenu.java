@@ -131,4 +131,29 @@ public class InterfaceMenu{
         List<Tarefa> tarefas = gerenciadorTarefas.obterTodasTarefas();
         exibirTarefas(tarefas, ""📋 TODAS AS TAREFAS"");
     }
+
+    private void listarTarefasPendentes(){
+        List<Tarefa> tarefas = gerenciadorTarefas.obterTarefasPendentes();
+        exibirTarefas(tarefas, "⏳ TAREFAS PENDENTES");
+    }
+
+    private void listarTarefasConcluidas(){
+        List<Tarefa> tarefas = gerenciadorTarefas.obterTarefasConcluidas(;
+        exibirTarefas(tarefas, "✅ TAREFAS CONCLUÍDAS");
+    }
+
+    private void exibirTarefas(List<Tarefa> tarefas, String titulo){
+        System.out.println("\n" + "=".repeat(50));
+        System.out.println(titulo);
+        System.out.println("=".repeat(50));
+
+        if (tarefas.isEmpty()){
+            System.out.println("📭 Nenhuma tarefa encontrada.");
+            return;
+        }
+
+        for (int i = 0; i < tarefas.size(); i++){
+            System.out.println("%d. %s%n", i + 1, tarefas.get(i));
+        }
+    }
 }

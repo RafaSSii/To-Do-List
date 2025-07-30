@@ -156,4 +156,27 @@ public class InterfaceMenu{
             System.out.println("%d. %s%n", i + 1, tarefas.get(i));
         }
     }
+
+    private void menuConcluirTarefa(){
+        List<Tarefa> tarefasPendentes = gerenciadorTarefas.obterTarefasPendentes();
+        if (tarefasPendentes.isEmpty()){
+            System.out.println("🎉 Todas as tarefas foram concluídas!");
+            return;
+        }
+
+        listarTarefasPendentes();
+        System.out.println("🎯 Digite o número da tarefa para marcar como concluída: ");
+
+        try {
+            int indice = scanner.nextInt() - 1;
+            if (gerenciadorTarefas.concluirTarefa(indice)){
+                System.out.println("✅ Tarefa marcada como concluída!");
+            } else {
+                System.out.println("❌ Índice inválido.");
+            }
+        } catch (InputMismatchException e){
+            System.out.println("❌ Entrada inválida.");
+            scanner.nextLine();
+        }
+    }
 }

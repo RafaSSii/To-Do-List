@@ -179,4 +179,57 @@ public class InterfaceMenu{
             scanner.nextLine();
         }
     }
+
+    private void menuRemoverTarefa(){
+        if (gerenciadorTarefas.getTotalTarefas() == 0){
+            System.out.println("📭 Nenhuma tarefa para remover.");
+            return;
+        }
+
+        listarTodasTarefas();
+        System.out.println("🗑️ Digite o número da tarefa para remover: ");
+
+        try {
+            int indice = scanner.nextInt() - 1;
+            if (gerenciadorTarefas.removerTarefas(indice)){
+                System.out.println("✅ Tarefa removida com sucesso!");
+            } else {
+                System.out.println("❌ Índice inválida.");
+            }
+        } catch (InputMismatchException e){
+            System.out.println("❌ Entrada inválida.");
+            scanner.nextLine();
+        }
+    }
+
+    private  void menuEditarTarefa(){
+        if (gerenciadorTarefas.getTotalTarefas() == 0){
+            System.out.println("📭 Nenhuma tarefa para editar.");
+            return;
+        }
+
+        listarTodasTarefas();
+        System.out.println("✏️ Digite o número da tarefa para editar: ");
+
+        try {
+            int indice = scanner.nextInt() - 1;
+            scanner.nextLine();
+
+            Tarefa tarefa = gerenciadorTarefas.obterTarefa(indice);
+            if (tarefa != null){
+                System.out.printf("📝 Descrição atual: %s%n", tarefa.getDescricao());
+                System.out.print("✏️ Nova descrição: "));
+                String novaDescricao = scanner.nextLine();
+
+                if (gerenciadorTarefas.editarTarefas(indice, novaDescricao)){
+                    System.out.println("✅ Tarefa editada com sucesso!");
+                }
+            } else {
+                System.out.println("❌ Índice inválido.");
+            }
+        } catch (InputMismatchException e){
+            System.out.println("❌ Entrada inválida."));
+            scanner.nextLine();
+        }
+    }
 }

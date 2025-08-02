@@ -232,4 +232,84 @@ public class InterfaceMenu{
             scanner.nextLine();
         }
     }
+
+    private void menuAlterarPrioridade(){
+        if (gerenciadorTarefas.getTotalTarefas() == 0){
+            System.out.println("📭 Nenhuma tarefa disponível.");
+            return;
+        }
+
+        listarTodasTarefas();
+        System.out.println("📝 Digite o número da tarefa para alterar prioridade: ");
+
+        try {
+            int indice = scanner.nextInt() - 1;
+            scanner.nextLine();
+
+            Tarefa tarefa = gerenciadorTarefas.obterTarefa(indice);
+            if (tarefa != null){
+                System.out.printf("🎯 Prioridade atual: %s%n", tarefa.getTextoPrioridade());
+                System.out.println("🎯 Nova prioridade:");
+                System.out.println("1. 🔴 Alta");
+                System.out.println("2. 🟡 Média");
+                System.out.println("3. 🟢 Baixa");
+                System.out.print("Escolha (1-3): ");
+
+                int novaPrioridade = scanner.nextInt();
+                if (gerenciadorTarefas.alterarPrioridade(indice, novaPrioridade)){
+                    System.out.println("✅ Prioridade alterada com sucesso!!!");
+                } else {
+                    System.out.println("❌ Prioridade inválida.");
+                }
+            } else {
+                System.out.println("❌ Índice inválido.");
+            }
+        } catch (InputMismatchException e){
+            System.out.println("❌ Entrada inválida.");
+            scanner.nextLine();
+        }
+    }
+
+    private void menuFiltrarPorPrioridade(){
+        System.out.println("🔍 Filtrar por prioridade:");
+        System.out.println("1. 🔴 Alta");
+        System.out.println("2. 🟡 Média");
+        System.out.println("3. 🟢 Baixa");
+        System.out.print("Escolha (1-3): ");
+
+        try {
+            int prioridade = scanner.nextInt();
+            List<Tarefa> tarefasFiltradas = gerenciadorTarefas.obterTarefasPorPrioridade(prioridade);
+
+            String textoPrioridade = "";
+            switch (prioridade){
+                case 1: textoPrioridade = "🔴 ALTA";
+                break;
+                case 2: textoPrioridade = "🟡 MÉDIA";
+                break;
+                case 3: textoPrioridade = "🟢 BAIXA";
+                break;
+            }
+
+            exibirTarefas(tarefasFiltradas, "🔍 TAREFAS COM PRIORIDADE " + textoPrioridade);
+        } catch (InputMismatchException e){
+            System.out.println("❌ Entrada inválida.");
+            scanner.nextLine();
+        }
+    }
+
+    private void mostrarEstatisticas(){
+        EstatisticasTarefas estatisticas = gerenciadorTarefas.obterEstatisticas();
+        System.out.println("\n" + estatisticas);
+    }
+
+    private void ordenarPorPrioridade(){
+        gerenciadorTarefas.ordenarPorPrioridade();
+        System.out.println("✅ Tarefas ordenadas por prioridade!");
+    }
+
+    private void limparTarefasConcluidas(){
+        int removidas = gerenciadorTarefas.limparTarefasConcluidas;
+        System.out.printf("%d tarefa(s) concluída(s) removida(s)!%n", removidas);
+    }
 }

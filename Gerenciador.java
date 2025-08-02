@@ -1,10 +1,10 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Gereciador{
+public class Gerenciador {
     private List<Tarefa> tarefas;
 
-    public Gereciador(){
+    public Gerenciador(){
         this.tarefas = new ArrayList<>();
     }
 

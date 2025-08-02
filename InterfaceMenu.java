@@ -3,11 +3,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class InterfaceMenu{
-    private GerenciadorTarefas gerenciadorTarefas;
-    private Scanner scanner;
+    private final Gerenciador gerenciadorTarefas;
+    private final Scanner scanner;
 
     public InterfaceMenu(){
-        this.gerenciadorTarefas = new GerenciadorTarefas();
+        this.gerenciadorTarefas = new Gerenciador();
         this.scanner = new Scanner(System.in);
     }
 
@@ -129,7 +129,7 @@ public class InterfaceMenu{
 
     private void listarTodasTarefas(){
         List<Tarefa> tarefas = gerenciadorTarefas.obterTodasTarefas();
-        exibirTarefas(tarefas, ""📋 TODAS AS TAREFAS"");
+        exibirTarefas(tarefas, "📋TODAS AS TAREFAS");
     }
 
     private void listarTarefasPendentes(){
@@ -138,7 +138,7 @@ public class InterfaceMenu{
     }
 
     private void listarTarefasConcluidas(){
-        List<Tarefa> tarefas = gerenciadorTarefas.obterTarefasConcluidas(;
+        List<Tarefa> tarefas = gerenciadorTarefas.obterTarefasConcluidas();
         exibirTarefas(tarefas, "✅ TAREFAS CONCLUÍDAS");
     }
 
@@ -153,7 +153,7 @@ public class InterfaceMenu{
         }
 
         for (int i = 0; i < tarefas.size(); i++){
-            System.out.println("%d. %s%n", i + 1, tarefas.get(i));
+            System.out.printf("%d. %s%n", i + 1, tarefas.get(i));
         }
     }
 
@@ -218,7 +218,7 @@ public class InterfaceMenu{
             Tarefa tarefa = gerenciadorTarefas.obterTarefa(indice);
             if (tarefa != null){
                 System.out.printf("📝 Descrição atual: %s%n", tarefa.getDescricao());
-                System.out.print("✏️ Nova descrição: "));
+                System.out.print("✏️ Nova descrição: ");
                 String novaDescricao = scanner.nextLine();
 
                 if (gerenciadorTarefas.editarTarefas(indice, novaDescricao)){
@@ -228,7 +228,7 @@ public class InterfaceMenu{
                 System.out.println("❌ Índice inválido.");
             }
         } catch (InputMismatchException e){
-            System.out.println("❌ Entrada inválida."));
+            System.out.println("❌ Entrada inválida.");
             scanner.nextLine();
         }
     }
